@@ -9,5 +9,7 @@ services:
       - .:/var/www/food_order
     ports:
       - "4000:4000"
+    env_file:
+      - .env
     tty: true
     stdin_open: true
