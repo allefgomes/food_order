@@ -16,8 +16,6 @@ defmodule FoodOrderWeb.Router do
 
   scope "/", FoodOrderWeb do
     pipe_through :browser
-
-    get "/", PageController, :index
   end
 
   # coveralls-ignore-start
