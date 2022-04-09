@@ -1,0 +1,13 @@
+version: "3"
+services:
+  web:
+    build: .
+    container_name: food_order_web
+    entrypoint: /bin/sh
+    # command: mix phx.server
+    volumes:
+      - .:/var/www/food_order
+    ports:
+      - "4000:4000"
+    tty: true
+    stdin_open: true
