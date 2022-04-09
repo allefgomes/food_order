@@ -8,7 +8,7 @@ import Config
 config :food_order, FoodOrder.Repo,
   username: "postgres",
   password: "postgres",
-  hostname: "localhost",
+  hostname: System.get_env("DB_HOSTNAME") || "localhost",
   database: "food_order_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
