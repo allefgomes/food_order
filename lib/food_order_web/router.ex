@@ -10,15 +10,17 @@ defmodule FoodOrderWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
+  # pipeline :api do
+  #   plug :accepts, ["json"]
+  # end
 
   scope "/", FoodOrderWeb do
     pipe_through :browser
 
     get "/", PageController, :index
   end
+
+  # coveralls-ignore-start
 
   # Other scopes may use custom stacks.
   # scope "/api", FoodOrderWeb do
@@ -53,4 +55,6 @@ defmodule FoodOrderWeb.Router do
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
+
+  # coveralls-ignore-stop
 end
