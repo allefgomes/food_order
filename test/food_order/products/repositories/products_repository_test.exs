@@ -1,7 +1,7 @@
 defmodule FoodOrder.Products.Repositories.ProductsRepositoryTest do
   use FoodOrder.DataCase
 
-  alias FoodOrder.Products.{ Repositories.ProductsRepository, Schemas.Product }
+  alias FoodOrder.Products.{Repositories.ProductsRepository, Schemas.Product}
 
   describe "list_products/0" do
     test "should return empty list when haven't products in database" do
@@ -29,7 +29,12 @@ defmodule FoodOrder.Products.Repositories.ProductsRepositoryTest do
   describe "create_product/1" do
     test "given a product, validates name, price and size as required" do
       expected_attrs_product = %{name: nil, price: nil, size: nil, description: nil}
-      expected_result = %{name: ["can't be blank"], price: ["can't be blank"], size: ["can't be blank"]}
+
+      expected_result = %{
+        name: ["can't be blank"],
+        price: ["can't be blank"],
+        size: ["can't be blank"]
+      }
 
       {:error, changeset} = ProductsRepository.create_product(expected_attrs_product)
 

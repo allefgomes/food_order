@@ -12,7 +12,8 @@ defmodule FoodOrderWeb.Admin.ProductLiveTest do
       assert has_element?(view, "tbody#foods-list")
     end
 
-    test "should has an thead>tr>th with product-name, product-price, product-size, product-actions data-ids", %{conn: conn} do
+    test "should has an thead>tr>th with product-name, product-price, product-size, product-actions data-ids",
+         %{conn: conn} do
       {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
       assert has_element?(view, "thead>tr>th[data-id=head-name]", "Name")
@@ -27,10 +28,30 @@ defmodule FoodOrderWeb.Admin.ProductLiveTest do
       {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
       assert has_element?(view, "tbody>tr##{product.id}")
-      assert has_element?(view, "tbody>tr##{product.id}>td[data-role=product-name][data-id=#{product.id}]", product.name)
-      assert has_element?(view, "tbody>tr##{product.id}>td[data-role=product-price][data-id=#{product.id}]", Integer.to_string(product.price))
-      assert has_element?(view, "tbody>tr##{product.id}>td[data-role=product-size][data-id=#{product.id}]", product.size)
-      assert has_element?(view, "tbody>tr##{product.id}>td[data-role=product-actions][data-id=#{product.id}]", "Show | Edit | Delete")
+
+      assert has_element?(
+               view,
+               "tbody>tr##{product.id}>td[data-role=product-name][data-id=#{product.id}]",
+               product.name
+             )
+
+      assert has_element?(
+               view,
+               "tbody>tr##{product.id}>td[data-role=product-price][data-id=#{product.id}]",
+               Integer.to_string(product.price)
+             )
+
+      assert has_element?(
+               view,
+               "tbody>tr##{product.id}>td[data-role=product-size][data-id=#{product.id}]",
+               product.size
+             )
+
+      assert has_element?(
+               view,
+               "tbody>tr##{product.id}>td[data-role=product-actions][data-id=#{product.id}]",
+               "Show | Edit | Delete"
+             )
     end
   end
 end

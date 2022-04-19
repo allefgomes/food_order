@@ -5,8 +5,8 @@ defmodule FoodOrder.Factory do
     %FoodOrder.Products.Schemas.Product{
       description: Faker.Lorem.paragraph(),
       name: Faker.Food.dish(),
-      price: [100, 200, 300] |> Enum.random,
-      size: ["small", "big", "normal"] |> Enum.random
+      price: [100, 200, 300] |> Enum.random(),
+      size: ["small", "big", "normal"] |> Enum.random()
     }
   end
 end
