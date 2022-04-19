@@ -1,8 +1,7 @@
 defmodule FoodOrder.Products.Repositories.ProductsRepositoryTest do
   use FoodOrder.DataCase
 
-  alias FoodOrder.Products.Schemas.Product
-  alias FoodOrder.Products.Repositories.ProductsRepository
+  alias FoodOrder.Products.{ Repositories.ProductsRepository, Schemas.Product }
 
   describe "list_products/0" do
     test "should return empty list when haven't products in database" do
