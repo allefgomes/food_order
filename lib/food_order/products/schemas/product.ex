@@ -15,7 +15,7 @@ defmodule FoodOrder.Products.Schemas.Product do
     timestamps()
   end
 
-  def changeset(attrs), do: changeset(%__MODULE__{}, attrs)
+  def changeset(attrs \\ %{}), do: changeset(%__MODULE__{}, attrs)
 
   def changeset(product, attrs) do
     product
