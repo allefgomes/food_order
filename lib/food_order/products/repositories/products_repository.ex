@@ -9,4 +9,8 @@ defmodule FoodOrder.Products.Repositories.ProductsRepository do
     |> Product.changeset()
     |> Repo.insert()
   end
+
+  def change_product(product, params), do: Product.changeset(product, params)
+
+  def change_product(), do: Product.changeset()
 end
