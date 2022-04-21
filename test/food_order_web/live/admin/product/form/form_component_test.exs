@@ -13,11 +13,13 @@ defmodule FoodOrderWeb.Admin.Product.FormComponentTest do
       {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
       assert has_element?(view, "#new-product")
+
       assert render_component(FormComponent, id: "new-product", changeset: changeset) =~
-         "<form action=\"#\" method=\"post\" id=\"new-product\""
+               "<form action=\"#\" method=\"post\" id=\"new-product\""
+
       assert view
-              |> form("#new-product", product: %{ name: "Product #1"})
-              |> render_change() =~ "can&#39;t be blank"
+             |> form("#new-product", product: %{name: "Product #1"})
+             |> render_change() =~ "can&#39;t be blank"
     end
   end
 end
