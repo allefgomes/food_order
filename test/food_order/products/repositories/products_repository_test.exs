@@ -78,7 +78,9 @@ defmodule FoodOrder.Products.Repositories.ProductsRepositoryTest do
 
       assert expected_result == changeset.data
     end
+  end
 
+  describe "change_product/2" do
     test "should return a new product with the same name, price, description and size" do
       product_attrs = params_for(:product)
 
