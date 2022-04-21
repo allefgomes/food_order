@@ -38,7 +38,7 @@ defmodule FoodOrderWeb.Admin.ProductLiveTest do
       assert has_element?(
                view,
                "tbody>tr##{product.id}>td[data-role=product-price][data-id=#{product.id}]",
-               Integer.to_string(product.price)
+               Money.to_string(product.price, symbol: true)
              )
 
       assert has_element?(

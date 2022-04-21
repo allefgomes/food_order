@@ -8,7 +8,7 @@ defmodule FoodOrder.Products.Schemas.Product do
   @foreign_key_type :binary_id
   schema "products" do
     field :name, :string
-    field :price, :integer
+    field :price, Money.Ecto.Amount.Type
     field :size, :string
     field :description, :string
 
@@ -21,7 +21,14 @@ defmodule FoodOrder.Products.Schemas.Product do
     product
     |> cast(attrs, @fields ++ @required_fields)
     |> validate_required(@required_fields)
-    |> validate_number(:price, greater_than: 0)
     |> unique_constraint(:name, name: :products_name_index)
+    |> validate_money(:price)
+  end
+
+  defp validate_money(changeset, field) do
+    validate_change(changeset, field, fn
+      _, %Money{amount: price} when price > 0 -> []
+      _, _ -> [price: "must be greater than 0"]
+    end)
   end
 end

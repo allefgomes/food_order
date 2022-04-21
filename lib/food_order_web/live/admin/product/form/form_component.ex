@@ -23,4 +23,17 @@ defmodule FoodOrderWeb.Admin.Product.FormComponent do
 
     {:noreply, assign(socket, :changeset, changeset)}
   end
+
+  def handle_event("save", %{"product" => product_params}, socket) do
+    case ProductsRepository.create_product(product_params) do
+      {:ok, _product} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Product has created")
+         |> push_redirect(to: Routes.admin_product_path(socket, :index))}
+
+      {:error, changeset} ->
+        {:noreply, assign(socket, changeset: changeset)}
+    end
+  end
 end
