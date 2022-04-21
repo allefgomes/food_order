@@ -2,6 +2,7 @@ defmodule FoodOrder.Products.Repositories.ProductsRepositoryTest do
   use FoodOrder.DataCase
 
   alias FoodOrder.Products.{Repositories.ProductsRepository, Schemas.Product}
+  import FoodOrder.Factory
 
   describe "list_products/0" do
     test "should return empty list when haven't products in database" do
@@ -58,6 +59,35 @@ defmodule FoodOrder.Products.Repositories.ProductsRepositoryTest do
       {:error, changeset} = ProductsRepository.create_product(expected_attrs_product)
 
       assert expected_result == errors_on(changeset)
+    end
+  end
+
+  describe "change_product/0" do
+    test "should return a new product" do
+      expected_result = %Product{
+        description: nil,
+        id: nil,
+        inserted_at: nil,
+        name: nil,
+        price: nil,
+        size: nil,
+        updated_at: nil
+      }
+
+      changeset = ProductsRepository.change_product()
+
+      assert expected_result == changeset.data
+    end
+
+    test "should return a new product with the same name, price, description and size" do
+      product_attrs = params_for(:product)
+
+      changeset = ProductsRepository.change_product(%Product{}, product_attrs)
+
+      assert changeset.changes.description == product_attrs.description
+      assert changeset.changes.name == product_attrs.name
+      assert changeset.changes.size == product_attrs.size
+      assert changeset.changes.price == product_attrs.price
     end
   end
 end
