@@ -47,8 +47,9 @@ defmodule FoodOrderWeb.Admin.Product.FormComponentTest do
       changeset = params_for(:invalid_product)
 
       assert view
-            |> form("#new-product", product: changeset)
-            |> render_submit() =~ "<span class=\"invalid-feedback\" phx-feedback-for=\"product[name]\">can&#39;t be blank</span>"
+             |> form("#new-product", product: changeset)
+             |> render_submit() =~
+               "<span class=\"invalid-feedback\" phx-feedback-for=\"product[name]\">can&#39;t be blank</span>"
     end
   end
 end
