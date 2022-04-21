@@ -5,10 +5,12 @@ defmodule FoodOrderWeb.Admin.Product.FormComponent do
 
   def update(assigns, socket) do
     changeset = ProductsRepository.change_product()
-    socket = socket
-             |> assign(assigns)
-             |> assign(changeset: changeset)
-             |> assign(product: %Product{})
+
+    socket =
+      socket
+      |> assign(assigns)
+      |> assign(changeset: changeset)
+      |> assign(product: %Product{})
 
     {:ok, socket}
   end
