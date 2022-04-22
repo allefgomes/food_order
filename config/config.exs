@@ -17,6 +17,9 @@ config :food_order, FoodOrderWeb.Endpoint,
   pubsub_server: FoodOrder.PubSub,
   live_view: [signing_salt: "ERStnfht"]
 
+config :money,
+  default_currency: :BRL
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails

@@ -57,12 +57,12 @@ section.hero {
 }
 
 .btn-primary {
-  background: var(--primary);
+  background: var(--primary) !important;
   transition: var(--smoth);
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-hover);
+  background-color: var(--primary-hover) !important;
 }
 
 @tailwind base;
