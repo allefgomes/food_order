@@ -1,16 +1,17 @@
 defmodule FoodOrderWeb.Admin.Product.FormComponent do
   use FoodOrderWeb, :live_component
   alias FoodOrder.Products.Repositories.ProductsRepository
-  alias FoodOrder.Products.Schemas.Product
 
-  def update(assigns, socket) do
-    changeset = ProductsRepository.change_product()
+  def update(%{product: product} = assigns, socket) do
+    changeset = ProductsRepository.change_product(product)
+    sizes = [Small: "small", Bigger: "bigger", Normal: "normal"]
 
     socket =
       socket
       |> assign(assigns)
+      |> assign(sizes: sizes)
       |> assign(changeset: changeset)
-      |> assign(product: %Product{})
+      |> assign(product: product)
 
     {:ok, socket}
   end
@@ -25,12 +26,31 @@ defmodule FoodOrderWeb.Admin.Product.FormComponent do
   end
 
   def handle_event("save", %{"product" => product_params}, socket) do
+    action = socket.assigns.action
+
+    save(socket, action, product_params)
+  end
+
+  def save(socket, :new, product_params) do
     case ProductsRepository.create_product(product_params) do
       {:ok, _product} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Product has created")
-         |> push_redirect(to: Routes.admin_product_path(socket, :index))}
+         |> put_flash(:info, "Product has created!")
+         |> push_redirect(to: socket.assigns.return_to)}
+
+      {:error, changeset} ->
+        {:noreply, assign(socket, changeset: changeset)}
+    end
+  end
+
+  def save(socket, :edit, product_params) do
+    case ProductsRepository.update_product(socket.assigns.product, product_params) do
+      {:ok, _product} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Product updated!")
+         |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
