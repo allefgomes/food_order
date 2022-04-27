@@ -5,9 +5,6 @@ RUN apk add --no-cache build-base npm git python3 inotify-tools bash
 ENV FOOD_ORDER_PATH=/var/www/food_order
 WORKDIR $FOOD_ORDER_PATH
 
-COPY assets/*.json ./assets/
-RUN npm install --prefix assets
-
 RUN mix local.hex --force && \
     mix local.rebar --force
 COPY mix.* ./

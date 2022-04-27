@@ -3,12 +3,9 @@ defmodule FoodOrderWeb.Main.Products.ProductTest do
   import Phoenix.LiveViewTest
 
   test "load page", %{conn: conn} do
-    {:ok, view, _html} = live(conn, Routes.main_path(conn, :index))
+    {:ok, _view, html} = live(conn, Routes.main_path(conn, :index))
 
-    assert has_element?(view, "h2", "Produto com nome")
-    assert has_element?(view, "span.size", "Small")
-    assert has_element?(view, "div > span.font-bold", "$ 10")
-    assert has_element?(view, "div > button > span", "+")
-    assert has_element?(view, "div > button > span", "add")
+    assert html =~ "Produto com nome"
+    assert html =~ "<span class=\"ml-4\">add</span>"
   end
 end
