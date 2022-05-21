@@ -18,6 +18,13 @@ defmodule FoodOrderWeb.Router do
     pipe_through :browser
 
     live "/", MainLive, :index
+
+    scope "/admin", Admin, as: :admin do
+      live "/products", ProductLive, :index
+      live "/products/new", ProductLive, :new
+      live "/product/:id/edit", ProductLive, :edit
+      live "/product/:id/show", ProductLive.Show, :show
+    end
   end
 
   # coveralls-ignore-start

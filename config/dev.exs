@@ -6,6 +6,7 @@ config :food_order, FoodOrder.Repo,
   password: System.get_env("DB_PASSWORD"),
   hostname: System.get_env("DB_HOSTNAME"),
   database: System.get_env("DB_DATABASE"),
+  port: System.get_env("DB_PORT"),
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
