@@ -23,6 +23,12 @@ defmodule FoodOrder.Products.Repositories.ProductsRepository do
     |> Repo.update()
   end
 
+  def delete(id) do
+    id
+    |> get!()
+    |> Repo.delete()
+  end
+
   def change_product(product, attrs \\ %{}), do: Product.changeset(product, attrs)
 
   def change_product, do: Product.changeset()
