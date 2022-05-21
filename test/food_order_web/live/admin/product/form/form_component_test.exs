@@ -4,23 +4,18 @@ defmodule FoodOrderWeb.Admin.Product.FormComponentTest do
   import Phoenix.LiveViewTest
   import FoodOrder.Factory
 
-  alias FoodOrder.Products.Repositories.ProductsRepository
-  alias FoodOrderWeb.Admin.Product.FormComponent
-
   describe "mount/3" do
     test "should load modal to insert a product", %{conn: conn} do
-      changeset = ProductsRepository.change_product()
+      product = insert(:product)
 
       {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
-      assert has_element?(view, "#new-product")
-
-      assert render_component(FormComponent, id: "new-product", changeset: changeset) =~
-               "<form action=\"#\" method=\"post\" id=\"new-product\""
+      assert view |> element("[data-role=edit-product][data-id=#{product.id}]") |> render_click()
+      assert_patch(view, Routes.admin_product_path(conn, :edit, product))
 
       assert view
-             |> form("#new-product", product: %{name: "Product #1"})
-             |> render_change() =~ "can&#39;t be blank"
+             |> form("##{product.id}", product: %{name: nil})
+             |> render_submit() =~ "can&#39;t be blank"
     end
   end
 
@@ -30,10 +25,11 @@ defmodule FoodOrderWeb.Admin.Product.FormComponentTest do
     } do
       changeset = params_for(:product)
       {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+      open_modal(view)
 
       {:ok, _view, html} =
         view
-        |> form("#new-product", product: changeset)
+        |> form("#new", product: changeset)
         |> render_submit()
         |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
 
@@ -44,12 +40,48 @@ defmodule FoodOrderWeb.Admin.Product.FormComponentTest do
       conn: conn
     } do
       {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+      open_modal(view)
       changeset = params_for(:invalid_product)
 
       assert view
-             |> form("#new-product", product: changeset)
+             |> form("#new", product: changeset)
              |> render_submit() =~
                "<span class=\"invalid-feedback\" phx-feedback-for=\"product[name]\">can&#39;t be blank</span>"
     end
+  end
+
+  test "given a product that already exists, edit", %{
+    conn: conn
+  } do
+    product = insert(:product)
+    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+    open_modal(view)
+
+    assert view
+           |> element("[data-role=edit-product][data-id=#{product.id}]")
+           |> render_click()
+
+    assert view
+           |> has_element?("#modal")
+
+    assert_patch(view, Routes.admin_product_path(conn, :edit, product))
+
+    assert view
+             |> form("##{product.id}", product: %{name: nil})
+             |> render_change() =~ "can&#39;t be blank"
+
+    {:ok, _view, html} =
+      view
+      |> form("##{product.id}", product: %{name: "abobora"})
+      |> render_submit()
+      |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
+
+    assert html =~ "Product updated!"
+  end
+
+  defp open_modal(view) do
+    view
+    |> element("[data-role=add-new-product]", "New")
+    |> render_click()
   end
 end

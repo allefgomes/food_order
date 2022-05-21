@@ -12,7 +12,7 @@ defmodule FoodOrder.Factory do
           %Money{amount: 300, currency: :BRL}
         ]
         |> Enum.random(),
-      size: ["small", "big", "normal"] |> Enum.random()
+      size: ["small", "bigger", "normal"] |> Enum.random()
     }
   end
 

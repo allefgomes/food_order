@@ -92,4 +92,41 @@ defmodule FoodOrder.Products.Repositories.ProductsRepositoryTest do
       assert changeset.changes.price == product_attrs.price
     end
   end
+
+  describe "get!/1" do
+    test "given an id returns a product" do
+      expected_attrs_product = %{name: "P1", price: 1, size: "p", description: "Teste"}
+      {:ok, product_expected} = ProductsRepository.create_product(expected_attrs_product)
+
+      product = ProductsRepository.get!(product_expected.id)
+
+      assert product_expected.id == product.id
+      assert product_expected.name == product.name
+      assert product_expected.price == product.price
+      assert product_expected.size == product.size
+      assert product_expected.description == product.description
+    end
+  end
+
+  describe "update_product/2" do
+    test "given attributes should update a product" do
+      expected_attrs_product = %{name: "P1", price: 1, size: "p"}
+      {:ok, product_expected} = ProductsRepository.create_product(expected_attrs_product)
+
+      updated_attrs_product = %{
+        name: "P1 updated",
+        price: %Money{amount: 12, currency: :BRL},
+        size: "big",
+        description: "Teste 1"
+      }
+
+      {:ok, product} = ProductsRepository.update_product(product_expected, updated_attrs_product)
+
+      assert product_expected.id == product.id
+      assert updated_attrs_product.name == product.name
+      assert updated_attrs_product.price == product.price
+      assert updated_attrs_product.size == product.size
+      assert updated_attrs_product.description == product.description
+    end
+  end
 end

@@ -27,30 +27,24 @@ defmodule FoodOrderWeb.Admin.ProductLiveTest do
 
       {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
-      assert has_element?(view, "tbody>tr##{product.id}")
+      assert has_element?(view, "tbody>tr##{product.id}product")
 
       assert has_element?(
                view,
-               "tbody>tr##{product.id}>td[data-role=product-name][data-id=#{product.id}]",
+               "tbody>tr##{product.id}product>td[data-role=product-name][data-id=#{product.id}]",
                product.name
              )
 
       assert has_element?(
                view,
-               "tbody>tr##{product.id}>td[data-role=product-price][data-id=#{product.id}]",
+               "tbody>tr##{product.id}product>td[data-role=product-price][data-id=#{product.id}]",
                Money.to_string(product.price, symbol: true)
              )
 
       assert has_element?(
                view,
-               "tbody>tr##{product.id}>td[data-role=product-size][data-id=#{product.id}]",
+               "tbody>tr##{product.id}product>td[data-role=product-size][data-id=#{product.id}]",
                product.size
-             )
-
-      assert has_element?(
-               view,
-               "tbody>tr##{product.id}>td[data-role=product-actions][data-id=#{product.id}]",
-               "Show | Edit | Delete"
              )
     end
   end
