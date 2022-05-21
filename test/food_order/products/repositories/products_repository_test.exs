@@ -108,6 +108,17 @@ defmodule FoodOrder.Products.Repositories.ProductsRepositoryTest do
     end
   end
 
+  describe "delete/1" do
+    test "given an id delete this product" do
+      expected_attrs_product = %{name: "P1", price: 1, size: "p", description: "Teste"}
+      {:ok, product} = ProductsRepository.create_product(expected_attrs_product)
+
+      {:ok, %Product{}} = ProductsRepository.delete(product.id)
+
+      assert_raise Ecto.NoResultsError, fn -> ProductsRepository.get!(product.id) end
+    end
+  end
+
   describe "update_product/2" do
     test "given attributes should update a product" do
       expected_attrs_product = %{name: "P1", price: 1, size: "p"}
