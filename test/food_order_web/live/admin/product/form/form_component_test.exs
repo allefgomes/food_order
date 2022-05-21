@@ -67,8 +67,8 @@ defmodule FoodOrderWeb.Admin.Product.FormComponentTest do
     assert_patch(view, Routes.admin_product_path(conn, :edit, product))
 
     assert view
-             |> form("##{product.id}", product: %{name: nil})
-             |> render_change() =~ "can&#39;t be blank"
+           |> form("##{product.id}", product: %{name: nil})
+           |> render_change() =~ "can&#39;t be blank"
 
     {:ok, _view, html} =
       view
