@@ -11,6 +11,7 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body>
+    <%= render "_user_menu.html", assigns %>
     <div class="p-4">
       <%= render FoodOrderWeb.LayoutView, "header.html", assigns %>
 
