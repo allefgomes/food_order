@@ -7,12 +7,17 @@
     <div id="menu">
         <ul class="flex items-center">
             <%= if @current_user do %>
-            <li class="ml-6"><%= @current_user.email %></li>
-            <li class="ml-6"><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
-            <li class="ml-6"><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
+
+                <%= if @current_user.role == :ADMIN do %>
+                    <li class="ml-6"><%= link "Admin Products", to: Routes.admin_product_path(@conn, :index) %></li>
+                <% end %>
+
+                <li class="ml-6"><%= @current_user.email %></li>
+                <li class="ml-6"><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
+                <li class="ml-6"><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
             <% else %>
-            <li class="ml-6"><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></li>
-            <li class="ml-6"><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></li>
+                <li class="ml-6"><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></li>
+                <li class="ml-6"><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></li>
             <% end %>
         </ul>
     </div>

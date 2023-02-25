@@ -1,16 +1,22 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     FoodOrder.Repo.insert!(%FoodOrder.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
-
+alias FoodOrder.Accounts.User
+alias FoodOrder.Repo
 alias FoodOrder.Products.Repositories.ProductsRepository
+
+%User{}
+|> User.registration_changeset(%{
+  email: "admin@test",
+  password: "123123123123",
+  role: "ADMIN"
+})
+|> Repo.insert!()
+
+user =
+  %User{}
+  |> User.registration_changeset(%{
+    email: "user@test",
+    password: "123123123123"
+  })
+  |> Repo.insert!()
 
 1..10
 |> Enum.map(fn index ->

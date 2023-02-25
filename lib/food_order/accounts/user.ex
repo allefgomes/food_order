@@ -7,6 +7,7 @@ defmodule FoodOrder.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    field :role, Ecto.Enum, values: [:USER, :ADMIN], default: :USER
 
     timestamps()
   end
@@ -30,7 +31,7 @@ defmodule FoodOrder.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :role])
     |> validate_email()
     |> validate_password(opts)
   end
