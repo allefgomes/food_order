@@ -4,6 +4,8 @@ defmodule FoodOrderWeb.Admin.Product.FormComponentTest do
   import Phoenix.LiveViewTest
   import FoodOrder.Factory
 
+  setup :register_and_log_in_user
+
   describe "mount/3" do
     test "should load modal to insert a product", %{conn: conn} do
       product = insert(:product)
