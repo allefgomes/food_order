@@ -4,7 +4,7 @@ defmodule FoodOrderWeb.Admin.ProductLiveTest do
   import Phoenix.LiveViewTest
   import FoodOrder.Factory
 
-  setup :register_and_log_in_user
+  setup :register_and_log_in_admin
 
   test "should has an table#all-foods and a tbody#foods-list", %{conn: conn} do
     {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))

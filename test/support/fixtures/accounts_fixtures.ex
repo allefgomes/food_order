@@ -14,6 +14,11 @@ defmodule FoodOrder.AccountsFixtures do
     })
   end
 
+  def admin_fixture(_attrs \\ %{}) do
+    attrs = %{role: "ADMIN"}
+    user_fixture(attrs)
+  end
+
   def user_fixture(attrs \\ %{}) do
     {:ok, user} =
       attrs

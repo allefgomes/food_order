@@ -38,6 +38,11 @@ defmodule FoodOrderWeb.ConnCase do
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 
+  def register_and_log_in_admin(%{conn: conn}) do
+    user = FoodOrder.AccountsFixtures.admin_fixture()
+    %{conn: log_in_user(conn, user), user: user}
+  end
+
   @doc """
   Setup helper that registers and logs in users.
 
