@@ -1,0 +1,37 @@
+<section class="login flex justify-center pt-4">
+
+  <div class="w-full max-w-xs">
+
+    <.form let={f} for={@changeset} class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      action={Routes.user_reset_password_path(@conn, :update, @token)}>
+      <%= if @changeset.action do %>
+      <div class="alert alert-danger">
+        <p>Oops, something went wrong! Please check the errors below.</p>
+      </div>
+      <% end %>
+
+      <div class="mb-4">
+        <%= label f, :password, "New password", class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= password_input f, :password, required: true, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        <%= error_tag f, :password %>
+      </div>
+
+      <div class="mb-4">
+        <%= label f, :password_confirmation, "Confirm new password", class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= password_input f, :password_confirmation, required: true, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        <%= error_tag f, :password_confirmation %>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <%= submit "Reset password", class: "btn-primary rounded-full text-sm  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      </div>
+    </.form>
+
+    <p>
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
+      <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
+    </p>
+
+  </div>
+
+</section>

@@ -186,3 +186,12 @@ section.hero {
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+section.login a {
+  color: var(--primary);
+  transition: var(--smooth);
+}
+
+section.login a:hover {
+  color: var(--primary-hover);
+}
