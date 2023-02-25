@@ -11,7 +11,10 @@ defmodule FoodOrderWeb.UserSessionControllerTest do
     test "renders log in page", %{conn: conn} do
       conn = get(conn, Routes.user_session_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ "<button class=\"btn-primary rounded-full text-sm  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline\" type=\"submit\">Log in</button>"
+
+      assert response =~
+               "<button class=\"btn-primary rounded-full text-sm  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline\" type=\"submit\">Log in</button>"
+
       assert response =~ "Register</a>"
       assert response =~ "Forgot your password?</a>"
     end
@@ -75,7 +78,10 @@ defmodule FoodOrderWeb.UserSessionControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<button class=\"btn-primary rounded-full text-sm  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline\" type=\"submit\">Log in</button>"
+
+      assert response =~
+               "<button class=\"btn-primary rounded-full text-sm  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline\" type=\"submit\">Log in</button>"
+
       assert response =~ "Invalid email or password"
     end
   end

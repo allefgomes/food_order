@@ -13,7 +13,9 @@ defmodule FoodOrderWeb.UserResetPasswordControllerTest do
     test "renders the reset password page", %{conn: conn} do
       conn = get(conn, Routes.user_reset_password_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ "<button class=\"btn-primary rounded-full text-sm  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline\" type=\"submit\">Send instructions to reset password</button>"
+
+      assert response =~
+               "<button class=\"btn-primary rounded-full text-sm  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline\" type=\"submit\">Send instructions to reset password</button>"
     end
   end
 
@@ -54,7 +56,9 @@ defmodule FoodOrderWeb.UserResetPasswordControllerTest do
 
     test "renders reset password", %{conn: conn, token: token} do
       conn = get(conn, Routes.user_reset_password_path(conn, :edit, token))
-      assert html_response(conn, 200) =~ "<button class=\"btn-primary rounded-full text-sm  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline\" type=\"submit\">Reset password</button>"
+
+      assert html_response(conn, 200) =~
+               "<button class=\"btn-primary rounded-full text-sm  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline\" type=\"submit\">Reset password</button>"
     end
 
     test "does not render reset password with invalid token", %{conn: conn} do
@@ -99,7 +103,10 @@ defmodule FoodOrderWeb.UserResetPasswordControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<button class=\"btn-primary rounded-full text-sm  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline\" type=\"submit\">Reset password</button>"
+
+      assert response =~
+               "<button class=\"btn-primary rounded-full text-sm  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline\" type=\"submit\">Reset password</button>"
+
       assert response =~ "should be at least 12 character(s)"
       assert response =~ "does not match password"
     end

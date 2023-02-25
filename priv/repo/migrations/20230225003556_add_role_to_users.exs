@@ -7,8 +7,7 @@ defmodule FoodOrder.Repo.Migrations.AddRoleToUsers do
 
     execute(create_query, drop_query)
 
-    alter table :users do
-
+    alter table(:users) do
       add :role, :roles, default: "USER", null: false
     end
   end
