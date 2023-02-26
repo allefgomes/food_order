@@ -4,25 +4,29 @@ alias FoodOrder.Products.Repositories.ProductsRepository
 
 %User{}
 |> User.registration_changeset(%{
-  email: "admin@test",
-  password: "123123123123",
+  email: "admin@allef.com",
+  password: "velhasuja123",
   role: "ADMIN"
 })
 |> Repo.insert!()
 
-user =
-  %User{}
-  |> User.registration_changeset(%{
-    email: "user@test",
-    password: "123123123123"
-  })
-  |> Repo.insert!()
+%User{}
+|> User.registration_changeset(%{
+  email: "user@allef.com",
+  password: "velhasuja123"
+})
+|> Repo.insert!()
 
-1..10
-|> Enum.map(fn index ->
-  ProductsRepository.create_product(%{
-    name: "Product #" <> Integer.to_string(index),
-    size: ["small", "big", "normal"] |> Enum.random(),
-    price: [10, 20, 35] |> Enum.random()
-  })
-end)
+{:ok, product} =
+  %{
+    name: Faker.Food.dish(),
+    description: Faker.Food.description(),
+    price: :random.uniform(10_000),
+    size: "small",
+    product_url: %Plug.Upload{
+      content_type: "image/png",
+      filename: "logo.png",
+      path: "priv/static/images/logo.png"
+    }
+  }
+  |> ProductsRepository.create_product()

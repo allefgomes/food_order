@@ -15,6 +15,9 @@ config :food_order, FoodOrderWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :waffle,
+  storage: Waffle.Storage.Local
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

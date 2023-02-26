@@ -1,6 +1,7 @@
 defmodule FoodOrder.Products.Repositories.ProductsRepository do
   alias FoodOrder.Products.Schemas.Product
   alias FoodOrder.Repo
+  alias FoodOrder.Products.Schemas.ProductImage
   import Ecto.Query, only: [from: 2]
 
   def list_products do
@@ -32,4 +33,17 @@ defmodule FoodOrder.Products.Repositories.ProductsRepository do
   def change_product(product, attrs \\ %{}), do: Product.changeset(product, attrs)
 
   def change_product, do: Product.changeset()
+
+  def get_image(product) do
+    {product.product_url, product}
+    |> ProductImage.url()
+    |> get_image_url()
+  end
+
+  defp get_image_url(nil), do: ""
+
+  defp get_image_url(url) do
+    [_ | url] = String.split(url, "/priv/static")
+    url
+  end
 end

@@ -34,3 +34,4 @@ npm-debug.log
 
 .elixir_ls
 .env
+/priv/static/uploads

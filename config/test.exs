@@ -24,6 +24,9 @@ config :food_order, FoodOrderWeb.Endpoint,
   secret_key_base: "NrNJCEh62ouVTQHOZnml/3RiPNXf1Co6ZrV560Cb40o1EZJv2VVzl4zOx7VBEESy",
   server: false
 
+config :waffle,
+  storage: Waffle.Storage.Local
+
 # In test we don't send emails.
 config :food_order, FoodOrder.Mailer, adapter: Swoosh.Adapters.Test
 
