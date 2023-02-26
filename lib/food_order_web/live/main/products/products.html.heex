@@ -2,8 +2,8 @@
   <h1 class="text-xl font-bold mb-8">Todos os pratos</h1>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 col-gap-12 row-gap-16">
-    <%= for index <- 1..10 do %>
-      <.live_component module={Product} id={"product-" <> Integer.to_string(index)} />
+    <%= for product <- @products do %>
+      <.live_component module={Product} id={"product-" <> product.id} product={product}/>
     <% end %>
   </div>
 </section>
